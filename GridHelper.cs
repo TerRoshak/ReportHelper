@@ -42,7 +42,7 @@ namespace CB.Helpers.ReportHelper
         /// <param name="Rows"></param>
         /// <param name="Background"></param>
         /// <returns></returns>
-        public static Grid CreateGrid(double GridWidth, double GridHeight, GridLength[] Columns, GridLength[] Rows, Brush Background, CustomGridWithLines.GridLineOptions GridLines = null)
+        public static Grid CreateGrid(double GridWidth, double GridHeight, GridLength[] Columns, GridLength[] Rows, Brush Background, CustomGridWithLines.GridLineOptions GridLines = null, Boolean AutoSizeWidth = false, Boolean AutoSizeHeight = false)
         {
             Grid nGrid;
 
@@ -56,8 +56,8 @@ namespace CB.Helpers.ReportHelper
                 (nGrid as CustomGridWithLines).GridLineSettings = GridLines;
             }
 
-            nGrid.Width = GridWidth;
-            nGrid.Height = GridHeight;
+            if (!AutoSizeWidth) nGrid.Width = GridWidth;
+            if (!AutoSizeHeight) nGrid.Height = GridHeight;
             nGrid.Background = Background;
 
             for (int columns = 0; columns < Columns.Length; columns++)
