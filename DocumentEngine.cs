@@ -56,7 +56,7 @@ namespace CB.Helpers.ReportHelper
             _printmargin = Printmargin;
             _doc = new FixedDocument();
 
-            Size A4SizeFromDefaultPrinter = Helpers.GetDefaultPrinterPrintSizeA4();
+            Size A4SizeFromDefaultPrinter = DocHelper.GetDefaultPrinterPrintSizeA4();
 
             if (A4SizeFromDefaultPrinter.IsEmpty) _doc.DocumentPaginator.PageSize = new Size(793.92, 1122.24); //default size for A4
             else _doc.DocumentPaginator.PageSize = A4SizeFromDefaultPrinter;
@@ -241,7 +241,7 @@ namespace CB.Helpers.ReportHelper
             FooterCanvas.Height = FooterHeight.Value;
             GridHelper.PutInGrid(FooterCanvas, nGrid, 0, 2);
 
-            Helpers.PutElementOn(nGrid, On);
+            DocHelper.PutElementOn(nGrid, On);
         }
 
         //Creates a random watermark canvas which is used by the watermark method
@@ -265,7 +265,7 @@ namespace CB.Helpers.ReportHelper
                 double shiftx = rand.NextDouble();
                 for (int x = 0; x <= numX; x++)
                 {
-                    Viewbox watermark = Helpers.LoadXAML<Viewbox>(Filename);
+                    Viewbox watermark = DocHelper.LoadXAML<Viewbox>(Filename);
                     watermark.Width = WWidth * 0.9;
                     watermark.Height = WHeight;
                     watermark.Opacity = opacity;
