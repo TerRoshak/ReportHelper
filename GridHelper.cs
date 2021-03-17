@@ -20,7 +20,7 @@ namespace CB.Helpers.ReportHelper
         /// <param name="GridRows"></param>
         /// <param name="Background"></param>
         /// <returns></returns>
-        public static Grid CreateEquiSizedGrid(double GridWidth, double GridHeight, int GridColumns, int GridRows, Brush Background, CustomGridWithLines.GridLineOptions GridLines = null)
+        public static Grid CreateEquiSizedGrid(double GridWidth, double GridHeight, int GridColumns, int GridRows, Brush Background, GridLineOptions GridLines = null)
         {
             double CellWidth = GridWidth / GridColumns;
             double CellHeight = GridHeight / GridRows;
@@ -42,7 +42,7 @@ namespace CB.Helpers.ReportHelper
         /// <param name="Rows"></param>
         /// <param name="Background"></param>
         /// <returns></returns>
-        public static Grid CreateGrid(double GridWidth, double GridHeight, GridLength[] Columns, GridLength[] Rows, Brush Background, CustomGridWithLines.GridLineOptions GridLines = null, Boolean AutoSizeWidth = false, Boolean AutoSizeHeight = false)
+        public static Grid CreateGrid(double GridWidth, double GridHeight, GridLength[] Columns, GridLength[] Rows, Brush Background, GridLineOptions GridLines = null, Boolean AutoSizeWidth = false, Boolean AutoSizeHeight = false)
         {
             Grid nGrid;
 
