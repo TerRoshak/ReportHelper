@@ -9,6 +9,7 @@ using System.Windows.Xps.Packaging;
 using System.IO.Packaging;
 using System.Windows.Xps;
 using System.Windows.Media;
+using System.Threading.Tasks;
 
 namespace CB.Helpers.ReportHelper
 {
@@ -99,6 +100,14 @@ namespace CB.Helpers.ReportHelper
 
             // Print to PDF
             PdfFilePrinter.PrintXpsToPdf(bytes, Filename, "PdfReport");
+        }
+
+        public async Task<Boolean> PrintDocumentOnDefaultPrinter()
+        {
+              return await Task<Boolean>.Run(() =>
+              {
+                  return DocHelper.PrintFixedDocumentOnDefaultPrinter(_doc);
+              });
         }
 
         /// <summary>
@@ -218,7 +227,7 @@ namespace CB.Helpers.ReportHelper
         /// <param name="ContentCanvas">Content Canvas</param>
         /// <param name="FooterCanvas">Footer Canvas</param>
         /// <param name="GridLines">optional Gridline Options for the grid created</param>
-        public void CreateHeaderFooter(Canvas On, GridLength HeaderHeight, GridLength FooterHeight, out Canvas HeaderCanvas, out Canvas ContentCanvas, out Canvas FooterCanvas, CustomGridWithLines.GridLineOptions GridLines = null)
+        public void CreateHeaderFooter(Canvas On, GridLength HeaderHeight, GridLength FooterHeight, out Canvas HeaderCanvas, out Canvas ContentCanvas, out Canvas FooterCanvas, GridLineOptions GridLines = null)
         {
             double ContentHeight = On.Height - HeaderHeight.Value - FooterHeight.Value;
 

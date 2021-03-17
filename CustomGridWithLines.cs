@@ -6,6 +6,43 @@ using System.Windows.Media;
 namespace CB.Helpers.ReportHelper
 {
 
+    [Serializable()]
+    public class GridLineOptions
+    {
+        public GridLinesVisibilityEnum Visibility = GridLinesVisibilityEnum.Both;
+        /// <summary>
+        /// Used for border and all other lines, when not defined otherwise
+        /// </summary>
+        public Pen GridLinesPen = new Pen(Brushes.Black, 1.0d);
+        public Pen VerticalGridLinesPen = null;
+        public Pen HorizontalGridLinesPen = null;
+        public Pen HeaderGridLinesPen = null;
+
+        public GridLineOptions()
+        {
+
+        }
+    }
+
+    #region GridLinesVisibilityEnum
+
+    //Upside down, binary jenga
+    [Serializable]
+    [Flags]
+    public enum GridLinesVisibilityEnum
+    {
+        AllWithHeader = 31,
+        All = 7,
+        VerticalHeader = 16,
+        HorizontalHeader = 8,
+        Both = 6,
+        Vertical = 4,
+        Horizontal = 2,
+        Border = 1,
+        None = 0
+    }
+    #endregion
+
     /// <summary>
     /// Thanx to
     /// https://www.codeproject.com/Tips/1039691/WPF-Grid-Control-with-Solid-GridLines
@@ -17,36 +54,6 @@ namespace CB.Helpers.ReportHelper
     /// </summary>
     public class CustomGridWithLines : Grid
     {
-        public class GridLineOptions
-        {
-            public GridLinesVisibilityEnum Visibility = GridLinesVisibilityEnum.Both;
-            /// <summary>
-            /// Used for border and all other lines, when not defined otherwise
-            /// </summary>
-            public Pen GridLinesPen = new Pen(Brushes.Black, 1.0d);
-            public Pen VerticalGridLinesPen = null;
-            public Pen HorizontalGridLinesPen = null;
-            public Pen HeaderGridLinesPen = null;
-        }
-
-        #region GridLinesVisibilityEnum
-
-        //Upside down, binary jenga
-        [Flags]
-        public enum GridLinesVisibilityEnum
-        {
-            AllWithHeader = 31,
-            All = 7,
-            VerticalHeader = 16,
-            HorizontalHeader = 8,
-            Both = 6,
-            Vertical = 4,
-            Horizontal = 2,
-            Border = 1,
-            None = 0
-        }
-        #endregion
-
 
         #region Properties
         public bool ShowCustomGridLines

@@ -4,8 +4,10 @@ using System.Linq;
 using System.Printing;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Documents;
 using System.Windows.Markup;
 using System.Windows.Media;
+using System.Windows.Xps;
 
 namespace CB.Helpers.ReportHelper
 {
@@ -214,6 +216,18 @@ namespace CB.Helpers.ReportHelper
         }
 
         #region Printer related
+
+        public static Boolean PrintFixedDocumentOnDefaultPrinter(FixedDocument doc)
+        {
+            PrintQueue pq = GetDefaultPrinterQueue();
+            if (pq.IsXpsDevice)
+            {
+                XpsDocumentWriter wr = PrintQueue.CreateXpsDocumentWriter(pq);
+                wr.Write(doc.DocumentPaginator);
+                return true;
+            }
+            else return false;
+        }
 
         /// <summary>
         /// Returns the systems default printer queue with preset PageMediaSize
