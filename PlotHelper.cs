@@ -429,7 +429,7 @@ namespace CB.Helpers.ReportHelper
             for (int i = 0; i < pd.Data.Length; i++)
             {
                 double xPart = ((pd.Data[i].Item1 - pd.XAxis.Info.Min) / pd.XAxis.Info.Range) *sz.Width;
-                double yPart = ((pd.Data[i].Item2 - pd.YAxis.Info.Min) / pd.YAxis.Info.Range) * sz.Height;
+                double yPart = (1.0d - ((pd.Data[i].Item2 - pd.YAxis.Info.Min) / pd.YAxis.Info.Range)) * sz.Height;
                 pc.Add(new Point(xPart,yPart));
             }
 
