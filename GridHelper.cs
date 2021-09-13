@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Shapes;
 
 namespace CB.Helpers.ReportHelper
 {
@@ -57,8 +58,13 @@ namespace CB.Helpers.ReportHelper
             }
 
             if (!AutoSizeWidth) nGrid.Width = GridWidth;
+            else nGrid.MaxWidth = GridWidth;
+
             if (!AutoSizeHeight) nGrid.Height = GridHeight;
+            else nGrid.MaxHeight = GridHeight;
+
             nGrid.Background = Background;
+
 
             for (int columns = 0; columns < Columns.Length; columns++)
             {
@@ -83,11 +89,29 @@ namespace CB.Helpers.ReportHelper
         /// <param name="g"></param>
         /// <param name="Column">ZERO based</param>
         /// <param name="Row">ZERO based</param>
-        public static void PutInGrid(FrameworkElement element, Grid g, int Column, int Row)
+        public static void PutInGrid(FrameworkElement element, Grid g, int Column, int Row, HorizontalAlignment HorizontalAlign = HorizontalAlignment.Stretch, VerticalAlignment VerticalAlign = VerticalAlignment.Stretch)
         {
             Grid.SetColumn(element, Column);
             Grid.SetRow(element, Row);
+            element.HorizontalAlignment = HorizontalAlign;
+            element.VerticalAlignment = VerticalAlign;
+
             g.Children.Add(element);
+
+            //not necessarily needed
+            //element.Measure(new Size(9999999999, 9999999999));
+            //element.Width = element.DesiredSize.Width;
+            //element.Height = element.DesiredSize.Height;
+        }
+
+        public static void SetCellBackground(Grid g, int Column, int Row, Brush Color)
+        {
+            Rectangle rect = new Rectangle();
+            rect.Fill = Color;
+            rect.Stroke = Brushes.Transparent;
+            rect.IsHitTestVisible = false;
+
+            PutInGrid(rect, g, Column, Row);
         }
 
 

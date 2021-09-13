@@ -69,6 +69,13 @@ namespace CB.Helpers.ReportHelper
         public static void CenterObject(FrameworkElement element, Canvas On, Boolean Horizontal = true, Boolean Vertical = true)
         {
 
+            if (double.IsNaN(element.Width) || double.IsNaN(element.Height))
+            {
+                element.Measure(new Size(On.Width, On.Height));
+                element.Width = element.DesiredSize.Width;
+                element.Height = element.DesiredSize.Height;
+            }
+
             if (Horizontal)
             {
                 double left = (On.Width - element.Width) / 2;
@@ -108,11 +115,9 @@ namespace CB.Helpers.ReportHelper
             return nBorder;
         }
 
-        public static TextBlock NewText(String txt, FontSettings FontSetting = null, Thickness? Padding = null)
+        public static TextBlock NewText(String txt, FontSettings FontSetting = null, Thickness? Padding = null, TextWrapping Wrapping = TextWrapping.NoWrap, Brush Background = null)
         {
             TextBlock result = new TextBlock();
-            result.TextAlignment = TextAlignment.Center;
-            result.Text = txt;
 
             FontSettings fs = new FontSettings();
             if (!(FontSetting is null)) fs = FontSetting;
@@ -124,12 +129,17 @@ namespace CB.Helpers.ReportHelper
             result.FontWeight = fs.Weight;
             result.Foreground = fs.Foreground;
             result.Background = fs.Background;
-            
-            result.Padding = (Padding is null) ? new Thickness(0) : (Thickness)Padding;
 
-            result.Measure(new Size(9999999999, 9999999999)); //srsly chris .. i'm disappointed in myself.
-            result.Width = result.DesiredSize.Width;
-            result.Height = result.DesiredSize.Height;
+            if (Background != null) result.Background = Background;
+            if (Padding != null) result.Padding = (Thickness)Padding;
+
+            result.Text = txt;
+            result.TextWrapping = Wrapping;
+
+            //does not work with textwrapping ...
+            //result.Measure(new Size(9999999, 9999999)); //srsly chris .. i'm disappointed in myself.
+            //result.Width = result.DesiredSize.Width;
+            //result.Height = result.DesiredSize.Height;
 
             return result;
         }
@@ -188,7 +198,8 @@ namespace CB.Helpers.ReportHelper
             if (!(Right is null)) Canvas.SetRight(element, (double)Right);
             if (!(Bottom is null)) Canvas.SetBottom(element, (double)Bottom);
 
-            element.Measure(new Size(On.Width, On.Height));
+            //not necessarily needed
+            //element.Measure(new Size(On.Width, On.Height));
         }
 
         /// <summary>
